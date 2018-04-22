@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private SeekBar seekbarVolume = null;
     private AudioManager audioManager = null;
 
-    private Handler mSeekbarUpdateHandler;
+    private Handler seekbarUpdateHandler;
 
 
     @Override
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         this.mp = new MediaPlayer();
 
-        this.mSeekbarUpdateHandler = new Handler();
+        this.seekbarUpdateHandler = new Handler();
     }
 
     @Override
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Uri playableUri = Uri.withAppendedPath(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, idSong);
         mp = MediaPlayer.create(this, playableUri);
         seekbarMedia.setMax(mp.getDuration());
-        mSeekbarUpdateHandler.postDelayed(mUpdateSeekbar,100);
+        seekbarUpdateHandler.postDelayed(mUpdateSeekbar,100);
         mp.start();
         buttonsState(true);
     }
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             textViewTime.setText(Util.timeConvert(currentDuration));
             seekbarMedia.setProgress(mp.getCurrentPosition());
-            mSeekbarUpdateHandler.postDelayed(this, 100);
+            seekbarUpdateHandler.postDelayed(this, 100);
 
             if(currentDuration == totalDuration-1) {
                 btnPlay.setBackgroundResource(R.drawable.btn_play_normal);
